@@ -6,6 +6,7 @@ import { Experience } from './components/Experience';
 import { Education } from './components/Education';
 import { Skills } from './components/Skills';
 import { Preview } from './components/Preview';
+import { AIAssistant } from './components/AIAssistant';
 import { ResumeData } from './types';
 
 const initialData: ResumeData = {
@@ -26,6 +27,17 @@ function App() {
 
   const exportToPDF = () => {
     window.print();
+  };
+
+  const handleAIUpdate = (field: keyof ResumeData['personalInfo'], value: string) => {
+    if (field === 'skills') {
+      setData({ ...data, skills: value.split(',') });
+    } else {
+      setData({
+        ...data,
+        personalInfo: { ...data.personalInfo, [field]: value }
+      });
+    }
   };
 
   return (
@@ -96,6 +108,10 @@ function App() {
                     data={data.skills}
                     onChange={(skills) => setData({ ...data, skills })}
                   />
+                </div>
+
+                <div className="bg-white shadow rounded-lg p-6">
+                  <AIAssistant data={data} onUpdate={handleAIUpdate} />
                 </div>
               </div>
             </Tab.Panel>
