@@ -7,6 +7,7 @@ import { Education } from './components/Education';
 import { Skills } from './components/Skills';
 import { Preview } from './components/Preview';
 import { AIAssistant } from './components/AIAssistant';
+import { TemplateSelector } from './components/TemplateSelector';
 import { ResumeData } from './types';
 import { exportToPDF, exportToWord, exportToHTML } from './utils/export';
 
@@ -21,6 +22,7 @@ const initialData: ResumeData = {
   experience: [],
   education: [],
   skills: [],
+  template: 'modern',
 };
 
 function App() {
@@ -98,6 +100,13 @@ function App() {
           <Tab.Panels>
             <Tab.Panel>
               <div className="space-y-8">
+                <div className="bg-white shadow rounded-lg p-6">
+                  <TemplateSelector
+                    selectedTemplate={data.template}
+                    onSelect={(template) => setData({ ...data, template })}
+                  />
+                </div>
+
                 <div className="bg-white shadow rounded-lg p-6">
                   <PersonalInfo
                     data={data.personalInfo}

@@ -22,4 +22,5 @@ export interface ResumeData {
     graduationDate: string;
   }[];
   skills: string[];
+  template: 'modern' | 'classic' | 'minimal' | 'professional';
 }
