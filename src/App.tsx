@@ -8,6 +8,7 @@ import { Skills } from './components/Skills';
 import { Preview } from './components/Preview';
 import { AIAssistant } from './components/AIAssistant';
 import { ResumeData } from './types';
+import { exportToPDF, exportToWord, exportToHTML } from './utils/export';
 
 const initialData: ResumeData = {
   personalInfo: {
@@ -25,10 +26,6 @@ const initialData: ResumeData = {
 function App() {
   const [data, setData] = useState<ResumeData>(initialData);
 
-  const exportToPDF = () => {
-    window.print();
-  };
-
   const handleAIUpdate = (field: keyof ResumeData['personalInfo'], value: string) => {
     if (field === 'skills') {
       setData({ ...data, skills: value.split(',') });
@@ -44,14 +41,33 @@ function App() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Resume Builder</h1>
-          <button
-            onClick={exportToPDF}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            <DocumentDuplicateIcon className="h-5 w-5 mr-2" />
-            Export PDF
-          </button>
+          <div className="flex items-center">
+            <img src="/Logo with Blue and Gray Color Scheme.png" alt="TAC Resume Builder" className="h-12 w-12 mr-3" />
+            <h1 className="text-3xl font-bold text-gray-900">TAC Resume Builder</h1>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => exportToPDF(data)}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+            >
+              <DocumentDuplicateIcon className="h-5 w-5 mr-2" />
+              Export PDF
+            </button>
+            <button
+              onClick={() => exportToWord(data)}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700"
+            >
+              <DocumentDuplicateIcon className="h-5 w-5 mr-2" />
+              Export DOCX
+            </button>
+            <button
+              onClick={() => exportToHTML(data)}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+            >
+              <DocumentDuplicateIcon className="h-5 w-5 mr-2" />
+              Export HTML
+            </button>
+          </div>
         </div>
 
         <Tab.Group>
